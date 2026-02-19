@@ -78,9 +78,10 @@ const App = function () {
             <>
               <ProgressBar
                 numOfQuestions={numOfQuestions}
-                index={index + 1}
+                index={index}
                 points={points}
                 totalPoints={totalPoints}
+                answer={answer}
               />
               <Question
                 question={questions.at(index)}
