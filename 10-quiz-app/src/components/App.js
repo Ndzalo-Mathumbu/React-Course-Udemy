@@ -4,23 +4,38 @@ import Loader from "./Loader";
 import Error from "./Error";
 import Ready from "./Ready";
 import Question from "./Question";
-
+import NextBtn from "./NextBtn";
 import { useEffect, useReducer } from "react";
+import ProgressBar from "./ProgressBar";
 
 const initialState = {
   questions: [],
   status: "loading",
-  index: 3,
+  index: 0,
+  answer: null,
+  points: 0,
 };
 
-const reducer = function (CurrentState, action) {
+const reducer = function (currentState, action) {
   switch (action.type) {
     case "dataReceived":
-      return { ...CurrentState, questions: action.payLoad, status: "ready" };
+      return { ...currentState, questions: action.payLoad, status: "ready" };
     case "dataFailed":
-      return { ...CurrentState, status: "Error" };
+      return { ...currentState, status: "Error" };
     case "start":
-      return { ...CurrentState, status: "active" };
+      return { ...currentState, status: "active" };
+    case "newAnswer":
+      const question = currentState?.questions[currentState.index];
+      return {
+        ...currentState,
+        answer: action.payLoad,
+        points:
+          action.payLoad === question.correctOption
+            ? currentState?.points + question.points
+            : currentState?.points,
+      };
+    case "nextQuestion":
+      return { ...currentState, index: currentState.index + 1, answer: null };
     default:
       throw new Error("Unknown action");
   }
@@ -29,8 +44,13 @@ const reducer = function (CurrentState, action) {
 const App = function () {
   const [stateVariable, dispatch] = useReducer(reducer, initialState);
 
-  const { status, questions, index } = stateVariable;
-
+  const { status, questions, index, answer, points } = stateVariable;
+  const numOfQuestions = questions.length;
+  const totalPoints = questions.reduce(
+    (acc, currValue) => acc + currValue.points,
+    0,
+  );
+  /* console.log(totalPoints); */
   useEffect(() => {
     const getQuestions = async function () {
       try {
@@ -52,9 +72,25 @@ const App = function () {
           {status === "loading" && <Loader />}
           {status === "Error" && <Error />}
           {status === "ready" && (
-            <Ready numOfQuestions={questions.length} dispatch={dispatch} />
+            <Ready numOfQuestions={numOfQuestions} dispatch={dispatch} />
           )}
-          {status === "active" && <Question question={questions.at(index)} />}
+          {status === "active" && (
+            <>
+              <ProgressBar
+                numOfQuestions={numOfQuestions}
+                index={index + 1}
+                points={points}
+                totalPoints={totalPoints}
+              />
+              <Question
+                question={questions.at(index)}
+                dispatch={dispatch}
+                answer={answer}
+              />
+
+              <NextBtn dispatch={dispatch} answer={answer} />
+            </>
+          )}
         </Main>
       </div>
     </>
