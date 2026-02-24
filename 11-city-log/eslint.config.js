@@ -1,30 +1,36 @@
 import js from "@eslint/js";
 import globals from "globals";
 import pluginReact from "eslint-plugin-react";
-import { defineConfig } from "eslint/config";
+import pluginReactHooks from "eslint-plugin-react-hooks";
 
-export default defineConfig([
-  // 1) Base JS rules
+export default [
   js.configs.recommended,
 
-  // 2) React rules
-  pluginReact.configs.flat.recommended,
-
-  // 3) ✅ Modern React JSX transform (React 17+ / Vite)
-  pluginReact.configs.flat["jsx-runtime"],
-
-  // 4) ✅ Your overrides MUST be last so they win
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
     languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
       globals: globals.browser,
+    },
+    plugins: {
+      react: pluginReact,
+      "react-hooks": pluginReactHooks,
     },
     settings: {
       react: { version: "detect" },
     },
     rules: {
-      "react/react-in-jsx-scope": ["warn", "off"],
+      // React 17+ (new JSX transform)
+      "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
+      "no-unused-vars": "warn",
+
+      // Hooks rules (these are *real* bug catchers)
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
     },
   },
-]);
+
+  pluginReact.configs.flat.recommended,
+];
