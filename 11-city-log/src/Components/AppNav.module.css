@@ -26,3 +26,6 @@
 .nav a:global(.active) {
   background-color: var(--color-dark--0);
 }
+.nav a:hover {
+  background-color: rgba(60, 68, 70, 0.798);
+}
