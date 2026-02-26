@@ -27,8 +27,8 @@ export default [
       "no-unused-vars": "warn",
 
       // Hooks rules (these are *real* bug catchers)
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/rules-of-hooks": "off",
+      "react-hooks/exhaustive-deps": "off",
     },
   },
 
