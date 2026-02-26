@@ -6,12 +6,22 @@ import pluginReactHooks from "eslint-plugin-react-hooks";
 export default [
   js.configs.recommended,
 
+  // 1) Load React's recommended rules first
+  pluginReact.configs.flat.recommended,
+
+  // 2) Then apply YOUR overrides last (so they win)
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        Intl: "readonly",
+      },
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
     },
     plugins: {
       react: pluginReact,
@@ -21,16 +31,10 @@ export default [
       react: { version: "detect" },
     },
     rules: {
-      // React 17+ (new JSX transform)
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
+      "react/prop-types": "off",
       "no-unused-vars": "warn",
-
-      // Hooks rules (these are *real* bug catchers)
-      "react-hooks/rules-of-hooks": "off",
-      "react-hooks/exhaustive-deps": "off",
     },
   },
-
-  pluginReact.configs.flat.recommended,
 ];

@@ -1,7 +1,7 @@
-import React from "react";
-void React;
 import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+void React;
 import HomePage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Products from "./pages/Product";
@@ -49,7 +49,10 @@ function App() {
               path="/app/cities"
               element={<CityList cityData={cityData} loading={loading} />}
             />
-            <Route path="/app/countries" element={<CountryList />} />
+            <Route
+              path="/app/countries"
+              element={<CountryList cityData={cityData} loading={loading} />}
+            />
             <Route path="/app/form" element={<h1>My Form</h1>} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
