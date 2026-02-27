@@ -10,6 +10,7 @@ import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./pages/AppLayout";
 import CityList from "./Components/CityList";
 import CountryList from "./Components/CountryList";
+import City from "./Components/City";
 
 const Base_URL = "http://localhost:8000";
 
@@ -49,6 +50,7 @@ function App() {
               path="/app/cities"
               element={<CityList cityData={cityData} loading={loading} />}
             />
+            <Route path="cities/:id" element={<City />} />
             <Route
               path="/app/countries"
               element={<CountryList cityData={cityData} loading={loading} />}
