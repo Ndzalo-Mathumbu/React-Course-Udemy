@@ -4,8 +4,11 @@ import styles from "./CountryList.module.css";
 import CountryItem from "./CountryItem";
 import Spinner from "./Spinner";
 import Message from "./Message";
+import { useCities } from "../Contexts/CitiesContext";
 
-function CountryList({ cityData, loading }) {
+function CountryList() {
+  const { cityData, loading } = useCities();
+
   if (loading) return <Spinner />;
   if (!cityData.length) return <Message message="No Countries added" />;
 

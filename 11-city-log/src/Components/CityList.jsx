@@ -4,8 +4,10 @@ import styles from "./CityList.module.css";
 import Spinner from "./Spinner";
 import CityItem from "./CityItem";
 import Message from "./Message";
+import { useCities } from "../Contexts/CitiesContext";
 
-function CityList({ cityData, loading }) {
+function CityList() {
+  const { cityData, loading } = useCities();
   if (loading) return <Spinner />;
   if (!cityData.length) return <Message message="No Cities added" />;
   return (

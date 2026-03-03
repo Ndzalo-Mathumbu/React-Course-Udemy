@@ -70,6 +70,10 @@ input:focus {
   bottom: 30px; */
 }
 
+.cta:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s;
+}
 /*
 "importCSSModule": {
     "prefix": "csm",
