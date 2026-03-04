@@ -28,6 +28,9 @@ const CitiesProvider = function ({ children }) {
     try {
       setIsLoading((a) => !a);
       const response = await fetch(`${BASE_URL}/cities/${id}`);
+      if (!response.ok) {
+        throw new Error(`City not found (${response.status})`);
+      }
       const data = await response.json();
       setCurrentCity(data);
     } catch (error) {
