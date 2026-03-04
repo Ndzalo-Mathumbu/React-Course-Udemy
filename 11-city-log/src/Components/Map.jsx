@@ -2,7 +2,14 @@ import React from "react";
 void React;
 import styles from "./Map.module.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMap,
+  useMapEvent,
+} from "react-leaflet";
 import { useEffect, useState } from "react";
 import { useCities } from "../Contexts/CitiesContext";
 import ChangeCenter from "./ChangeCenter";
@@ -32,7 +39,11 @@ function Map() {
   }, [lat, lng]);
 
   return (
-    <div className={styles.mapContainer} onClick={() => navigate("/app/form")}>
+    <div
+      className={
+        styles.mapContainer
+      } /* onClick={() => navigate("/app/form")} */
+    >
       <MapContainer
         center={position}
         zoom={8}
@@ -44,7 +55,7 @@ function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <ChangeCenter position={position} />
-
+        <DetectClick />
         {/*Render markers from cities */}
         {cityData.map((city) => {
           return (
@@ -62,5 +73,15 @@ function Map() {
     </div>
   );
 }
+
+const DetectClick = function () {
+  const navigate = useNavigate();
+  useMapEvent({
+    click: (e) => {
+      console.log(e);
+      navigate(`/app/form?lat=${e.latlng.lat}&lng${e.latlng.lng}`);
+    },
+  });
+};
 
 export default Map;
