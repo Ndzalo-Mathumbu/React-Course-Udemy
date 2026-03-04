@@ -35,6 +35,144 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Sasolburg",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-07-15T08:22:53.976Z",
+      "notes": "",
+      "position": {
+        "lat": -26.761642845161678,
+        "lng": 27.840019839424443
+      },
+      "id": 193906751
+    },
+    {
+      "cityName": "Cape Town",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-04-12T10:11:22.138Z",
+      "notes": "Table Mountain view",
+      "position": { "lat": -33.9249, "lng": 18.4241 },
+      "id": "48392011"
+    },
+    {
+      "cityName": "Johannesburg",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-05-18T12:41:11.138Z",
+      "notes": "Busy city life",
+      "position": { "lat": -26.2041, "lng": 28.0473 },
+      "id": "99381220"
+    },
+    {
+      "cityName": "Durban",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-06-21T09:19:33.138Z",
+      "notes": "Warm beaches",
+      "position": { "lat": -29.8587, "lng": 31.0218 },
+      "id": "66122910"
+    },
+    {
+      "cityName": "Pretoria",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-03-10T07:13:10.138Z",
+      "notes": "Jacaranda trees everywhere",
+      "position": { "lat": -25.7479, "lng": 28.2293 },
+      "id": "55199210"
+    },
+    {
+      "cityName": "Bloemfontein",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-01-22T15:02:41.138Z",
+      "notes": "",
+      "position": { "lat": -29.0852, "lng": 26.1596 },
+      "id": "44192311"
+    },
+    {
+      "cityName": "Port Elizabeth",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-02-14T14:55:01.138Z",
+      "notes": "Windy city",
+      "position": { "lat": -33.9608, "lng": 25.6022 },
+      "id": "88933120"
+    },
+    {
+      "cityName": "Polokwane",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-08-11T11:24:10.138Z",
+      "notes": "",
+      "position": { "lat": -23.9045, "lng": 29.4689 },
+      "id": "19922311"
+    },
+    {
+      "cityName": "Mbombela",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-09-04T16:45:30.138Z",
+      "notes": "Gateway to Kruger",
+      "position": { "lat": -25.4658, "lng": 30.9853 },
+      "id": "77823120"
+    },
+    {
+      "cityName": "Kimberley",
+      "country": "South Africa",
+      "emoji": "🇿🇦",
+      "date": "2027-05-03T09:00:00.138Z",
+      "notes": "Big Hole mine",
+      "position": { "lat": -28.7282, "lng": 24.7499 },
+      "id": "66321200"
+    },
+    {
+      "cityName": "Paris",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2027-06-05T12:21:00.138Z",
+      "notes": "Eiffel Tower!",
+      "position": { "lat": 48.8566, "lng": 2.3522 },
+      "id": "88112211"
+    },
+    {
+      "cityName": "London",
+      "country": "United Kingdom",
+      "emoji": "🇬🇧",
+      "date": "2027-07-10T08:10:20.138Z",
+      "notes": "",
+      "position": { "lat": 51.5072, "lng": -0.1276 },
+      "id": "99821122"
+    },
+    {
+      "cityName": "New York",
+      "country": "United States",
+      "emoji": "🇺🇸",
+      "date": "2027-03-25T19:44:12.138Z",
+      "notes": "The city that never sleeps",
+      "position": { "lat": 40.7128, "lng": -74.006 },
+      "id": "11998221"
+    },
+    {
+      "cityName": "Tokyo",
+      "country": "Japan",
+      "emoji": "🇯🇵",
+      "date": "2027-09-14T05:55:11.138Z",
+      "notes": "Future vibes",
+      "position": { "lat": 35.6762, "lng": 139.6503 },
+      "id": "33772211"
+    },
+    {
+      "cityName": "Sydney",
+      "country": "Australia",
+      "emoji": "🇦🇺",
+      "date": "2027-10-01T13:22:11.138Z",
+      "notes": "Opera House",
+      "position": { "lat": -33.8688, "lng": 151.2093 },
+      "id": "44999111"
     }
   ]
 }
