@@ -26,6 +26,7 @@ function Map() {
   const lat = searchParams?.get("lat");
   const lng = searchParams?.get("lng");
 
+  console.log(`My Coordinates are lat:${lat}&lng=${lng}`);
   //Sync URL -> map position
   useEffect(() => {
     if (!lat || !lng) return;
