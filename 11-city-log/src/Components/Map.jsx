@@ -1,5 +1,3 @@
-import React from "react";
-void React;
 import styles from "./Map.module.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
@@ -7,12 +5,14 @@ import {
   TileLayer,
   Marker,
   Popup,
-  useMap,
   useMapEvent,
 } from "react-leaflet";
 import { useEffect, useState } from "react";
 import { useCities } from "../Contexts/CitiesContext";
 import ChangeCenter from "./ChangeCenter";
+import { useGeolocation } from "../hooks/useGeolocation";
+import Button from "./Button";
+import { useUrlPosition } from "../hooks/useUrlPosition";
 
 function Map() {
   const [position, setPosition] = useState([
@@ -21,12 +21,13 @@ function Map() {
 
   const { cityData } = useCities();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const {
+    isLoading: isLoadingPosition,
+    position: geoPosition,
+    getPosition,
+  } = useGeolocation();
+  const { mapLat: lat, mapLng: lng } = useUrlPosition();
 
-  const lat = searchParams?.get("lat");
-  const lng = searchParams?.get("lng");
-
-  console.log(`My Coordinates are lat:${lat}&lng=${lng}`);
   //Sync URL -> map position
   useEffect(() => {
     if (!lat || !lng) return;
@@ -39,12 +40,25 @@ function Map() {
     setPosition([newLat, newLng]);
   }, [lat, lng]);
 
+  // Sync geolocation -> map position
+  useEffect(() => {
+    if (!geoPosition) return;
+    if (geoPosition.lat == null || geoPosition.lng == null) return;
+
+    setPosition([geoPosition.lat, geoPosition.lng]);
+  }, [geoPosition]);
+
   return (
     <div
       className={
         styles.mapContainer
       } /* onClick={() => navigate("/app/form")} */
     >
+      {!geoPosition && (
+        <Button type="position" onClick={getPosition}>
+          {isLoadingPosition ? "Loading plz wait..." : "Use your position"}
+        </Button>
+      )}
       <MapContainer
         center={position}
         zoom={8}
@@ -79,7 +93,7 @@ const DetectClick = function () {
   const navigate = useNavigate();
   useMapEvent({
     click: (e) => {
-      console.log(e);
+      ///
       navigate(`/app/form?lat=${e.latlng.lat}&lng${e.latlng.lng}`);
     },
   });
