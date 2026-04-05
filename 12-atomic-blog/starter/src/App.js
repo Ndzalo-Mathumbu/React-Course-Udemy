@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import { faker } from "@faker-js/faker";
-
+import Text from "./Test";
 function createRandomPost() {
   return {
     title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
@@ -77,6 +77,7 @@ function App() {
   );
 }
 
+//3) Consume context value.
 function Header() {
   const { onClearPosts } = useContext(PostContext);
   return (
@@ -164,14 +165,17 @@ function List() {
   const { posts } = useContext(PostContext);
 
   return (
-    <ul>
-      {posts.map((post, i) => (
-        <li key={i}>
-          <h3>{post.title}</h3>
-          <p>{post.body}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {posts.map((post, i) => (
+          <li key={i}>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+          </li>
+        ))}
+      </ul>
+      {/* <Text /> */}
+    </>
   );
 }
 
