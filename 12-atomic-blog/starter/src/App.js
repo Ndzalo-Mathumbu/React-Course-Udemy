@@ -1,4 +1,11 @@
-import { useEffect, useState, createContext, useContext } from "react";
+import {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  useMemo,
+  memo,
+} from "react";
 import { faker } from "@faker-js/faker";
 import Text from "./Test";
 function createRandomPost() {
@@ -44,17 +51,19 @@ function App() {
     [isFakeDark],
   );
 
+  const value = useMemo(() => {
+    return {
+      posts: searchedPosts,
+      onAddPost: handleAddPost,
+      onClearPosts: handleClearPosts,
+      searchQuery: searchQuery,
+      setSearchQuery: setSearchQuery,
+    };
+  }, [searchQuery, searchedPosts]);
+
   return (
     //2. Provide value to children components
-    <PostContext.Provider
-      value={{
-        posts: searchedPosts,
-        onAddPost: handleAddPost,
-        onClearPosts: handleClearPosts,
-        searchQuery: searchQuery,
-        setSearchQuery: setSearchQuery,
-      }}
-    >
+    <PostContext.Provider value={value}>
       <section>
         <button
           onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
@@ -78,7 +87,7 @@ function App() {
 }
 
 //3) Consume context value.
-function Header() {
+const Header = memo(function Header() {
   const { onClearPosts } = useContext(PostContext);
   return (
     <header>
@@ -92,7 +101,7 @@ function Header() {
       </div>
     </header>
   );
-}
+});
 
 function SearchPosts() {
   const { searchQuery, setSearchQuery } = useContext(PostContext);
@@ -110,7 +119,7 @@ function Results() {
   return <p>🚀 {posts.length} atomic posts found</p>;
 }
 
-function Main() {
+const Main = memo(function Main() {
   // const { posts, onAddPost } = useContext(PostContext);
   return (
     <main>
@@ -118,7 +127,7 @@ function Main() {
       <Posts /* posts={posts} */ />
     </main>
   );
-}
+});
 
 function Posts() {
   // const { posts } = useContext(PostContext);
@@ -129,7 +138,6 @@ function Posts() {
     </section>
   );
 }
-
 function FormAddPost() {
   const { onAddPost } = useContext(PostContext);
 
