@@ -1,18 +1,27 @@
 import { combineReducers, createStore } from "redux";
+import accountReducer from "./Features/accounts/accountSlice";
+import clientReducer from "./Features/Customers/customerSlice";
 
-const initialStateAccount = {
+const rootReducer = combineReducers({
+  account: accountReducer,
+  client: clientReducer,
+});
+
+const store = createStore(rootReducer);
+
+/* const initialStateAccount = {
   balance: 0,
   loan: 0,
   loanReason: "",
-};
+}; */
 
-const initialStateClient = {
+/* const initialStateClient = {
   fullName: "",
   nationalID: "",
   createdAT: "",
-};
+}; */
 
-const accountReducer = function (state = initialStateAccount, action) {
+/* const accountReducer = function (state = initialStateAccount, action) {
   switch (action.type) {
     case "account/deposit":
       return { ...state, balance: state.balance + action.payload };
@@ -39,8 +48,8 @@ const accountReducer = function (state = initialStateAccount, action) {
       return state;
   }
 };
-
-const clientReducer = function (state = initialStateClient, action) {
+ */
+/* const clientReducer = function (state = initialStateClient, action) {
   switch (action.type) {
     case "client/CreateClient":
       return {
@@ -54,14 +63,7 @@ const clientReducer = function (state = initialStateClient, action) {
     default:
       return state;
   }
-};
-
-const rootReducer = combineReducers({
-  account: accountReducer,
-  client: clientReducer,
-});
-
-const store = createStore(rootReducer);
+}; */
 
 /* store.dispatch({ type: "account/deposit", payload: 500 });
 
@@ -80,7 +82,7 @@ console.log(store.getState());
  */
 
 // action creators
-const deposit = function (amount) {
+/* const deposit = function (amount) {
   return { type: "account/deposit", payload: amount };
 };
 
@@ -101,12 +103,12 @@ const payLoanBack = function () {
 
 store.dispatch(deposit(700));
 store.dispatch(withdraw(300));
-store.dispatch(requestLoan(1000));
+store.dispatch(requestLoan(1000)); */
 // store.dispatch(payLoanBack());
 
 // console.log(store.getState());
 
-const createCustomer = function (
+/* const createCustomer = function (
   fullName = "John Doe",
   nationalID = "No input",
 ) {
@@ -118,9 +120,11 @@ const createCustomer = function (
 
 const updateName = function (newName) {
   return { type: "client/UpdateName", payload: newName };
-};
+}; */
 
-store.dispatch(createCustomer());
-store.dispatch(updateName("Ndzalo NK"));
+// store.dispatch(createCustomer());
+// store.dispatch(updateName("Ndzalo NK"));
 
-console.log(store.getState());
+// console.log(store.getState());
+
+export default store;
