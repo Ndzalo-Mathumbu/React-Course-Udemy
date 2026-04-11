@@ -20,10 +20,7 @@ const clientReducer = function (state = initialStateClient, action) {
   }
 };
 
-export const createCustomer = function (
-  fullName = "John Doe",
-  nationalID = "No input",
-) {
+export const createCustomer = function (fullName, nationalID) {
   return {
     type: "client/CreateClient",
     payload: { fullName, nationalID, createdAT: new Date().toISOString() },

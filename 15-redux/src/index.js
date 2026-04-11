@@ -5,8 +5,6 @@ import "./index.css";
 import App from "./App";
 
 import store from "./store";
-store.dispatch({ type: "account/withdraw", payload: 400 });
-console.log(store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
