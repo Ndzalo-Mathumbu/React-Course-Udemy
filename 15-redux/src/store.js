@@ -1,13 +1,13 @@
-import { combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 import accountReducer from "./Features/accounts/accountSlice";
 import clientReducer from "./Features/Customers/customerSlice";
-
+import { thunk } from "redux-thunk";
 const rootReducer = combineReducers({
   account: accountReducer,
   client: clientReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 /* const initialStateAccount = {
   balance: 0,
