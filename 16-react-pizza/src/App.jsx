@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
+import AppLayout from "./UI/AppLayout";
 
 const Home = lazy(() => import("./UI/Home"));
 const Menu = lazy(() => import("./Features/Menu/Menu"));
@@ -9,13 +10,18 @@ const CreateOrder = lazy(() => import("./Features/Order/CreateOrder"));
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      { path: "/menu", element: <Menu /> },
+      { path: "/cart", element: <Cart /> },
+      { path: "/order/:orderId", element: <Order /> },
+      { path: "/order/new", element: <CreateOrder /> },
+    ],
   },
-  { path: "/menu", element: <Menu /> },
-  { path: "/cart", element: <Cart /> },
-  { path: "/order/:orderId", element: <Order /> },
-  { path: "/order/new", element: <CreateOrder /> },
 ]);
 
 const App = function () {

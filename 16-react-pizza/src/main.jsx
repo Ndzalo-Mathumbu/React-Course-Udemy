@@ -4,10 +4,11 @@ import App from "./App.jsx";
 import "/index.css";
 // import { RouterProvider } from "react-router-dom";
 import { Suspense } from "react";
+import Loader from "./UI/Loader.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Suspense fallback={<p>Coming...</p>}>
+    <Suspense fallback={<Loader />}>
       <App />
     </Suspense>
   </React.StrictMode>,
