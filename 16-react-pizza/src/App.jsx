@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
 import AppLayout from "./UI/AppLayout";
+import { getMenu } from "./Services/apiRestaurant";
 
 const Home = lazy(() => import("./UI/Home"));
 const Menu = lazy(() => import("./Features/Menu/Menu"));
@@ -16,7 +17,14 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      { path: "/menu", element: <Menu /> },
+      {
+        path: "/menu",
+        element: <Menu />,
+        loader: async function () {
+          const menu = await getMenu();
+          return menu;
+        },
+      },
       { path: "/cart", element: <Cart /> },
       { path: "/order/:orderId", element: <Order /> },
       { path: "/order/new", element: <CreateOrder /> },
