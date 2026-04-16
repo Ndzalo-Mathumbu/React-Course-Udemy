@@ -6,6 +6,7 @@ import {
 import { lazy } from "react";
 import AppLayout from "./UI/AppLayout";
 import { createOrder, getMenu, getOrder } from "./Services/apiRestaurant";
+import { isValidPhone } from "./Features/Order/CreateOrder";
 
 const Home = lazy(() => import("./UI/Home"));
 const Menu = lazy(() => import("./Features/Menu/Menu"));
@@ -55,6 +56,12 @@ export const router = createBrowserRouter([
             cart: JSON.parse(data.cart),
             priority: data.priority === "on",
           };
+
+          const possibleErrors = {};
+
+          if (!isValidPhone(order.phone))
+            possibleErrors.phone = `Kindly enter a correct number. This (${order.phone}) is not valid.`;
+          if (Object.keys(possibleErrors).length > 0) return possibleErrors;
 
           const newOrder = await createOrder(order);
 
