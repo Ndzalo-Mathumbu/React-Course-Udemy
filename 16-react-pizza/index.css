@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @layer components {
+  .input {
+    @apply rounded-full md:px-6 md:py-3 text-sm bg-yellow-100 placeholder:text-stone-400  sm:w-full sm:focus:w-70 transition-all duration-500 focus: outline-none focus:ring-yellow-400 focus:ring-2 w-full;
+  }
+} */
+
 /* body {
   font-family:
     system-ui,
@@ -81,7 +87,7 @@
 
 .honeycomb div:after,
 .honeycomb div:before {
-  content: "";
+  content: '';
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   position: absolute;
