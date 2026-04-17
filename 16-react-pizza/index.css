@@ -1,4 +1,8 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body {
   font-family:
     system-ui,
     -apple-system,
@@ -21,7 +25,7 @@ body {
   gap: 32px;
   height: 100dvh;
 }
-
+ */
 /* Loader */
 @-webkit-keyframes honeycomb {
   0%,
