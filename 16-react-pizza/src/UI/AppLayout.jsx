@@ -2,6 +2,7 @@ import { Outlet, useNavigation } from 'react-router-dom';
 import CartOverview from '../Features/Cart/CartOverview';
 import Header from './Header';
 import Loader from './Loader';
+import Footer from './Footer';
 
 function AppLayout() {
   const navigation = useNavigation();
@@ -9,9 +10,7 @@ function AppLayout() {
   return (
     <div className="grid grid-rows-[auto_1fr_auto] h-screen">
       {navigation.state === 'loading' ? (
-        <center>
-          <Loader />
-        </center>
+        <Loader />
       ) : (
         <>
           <Header />
@@ -22,6 +21,7 @@ function AppLayout() {
             </main>
           </div>
           <CartOverview />
+          <Footer />
         </>
       )}
     </div>

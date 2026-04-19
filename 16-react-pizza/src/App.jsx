@@ -2,18 +2,18 @@ import {
   createBrowserRouter,
   redirect,
   RouterProvider,
-} from "react-router-dom";
-import { lazy } from "react";
-import AppLayout from "./UI/AppLayout";
-import { createOrder, getMenu, getOrder } from "./Services/apiRestaurant";
-import { isValidPhone } from "./Features/Order/CreateOrder";
+} from 'react-router-dom';
+import { lazy } from 'react';
+import AppLayout from './UI/AppLayout';
+import { createOrder, getMenu, getOrder } from './Services/apiRestaurant';
+import { isValidPhone } from './Features/Order/CreateOrder';
 
-const Home = lazy(() => import("./UI/Home"));
-const Menu = lazy(() => import("./Features/Menu/Menu"));
-const Cart = lazy(() => import("./Features/Cart/Cart"));
-const Order = lazy(() => import("./Features/Order/Order"));
-const CreateOrder = lazy(() => import("./Features/Order/CreateOrder"));
-const Error = lazy(() => import("./UI/Error"));
+const Home = lazy(() => import('./UI/Home'));
+const Menu = lazy(() => import('./Features/Menu/Menu'));
+const Cart = lazy(() => import('./Features/Cart/Cart'));
+const Order = lazy(() => import('./Features/Order/Order'));
+const CreateOrder = lazy(() => import('./Features/Order/CreateOrder'));
+const Error = lazy(() => import('./UI/Error'));
 
 export const router = createBrowserRouter([
   {
@@ -21,11 +21,11 @@ export const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
       {
-        path: "/menu",
+        path: '/menu',
         element: <Menu />,
         loader: async function () {
           const menu = await getMenu();
@@ -33,9 +33,9 @@ export const router = createBrowserRouter([
         },
         errorElement: <Error />,
       },
-      { path: "/cart", element: <Cart /> },
+      { path: '/cart', element: <Cart /> },
       {
-        path: "/order/:orderId",
+        path: '/order/:orderId',
         element: <Order />,
         loader: async function ({ params }) {
           const order = await getOrder(params.orderId);
@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: "/order/new",
+        path: '/order/new',
         element: <CreateOrder />,
         action: async function ({ request }) {
           const formData = await request.formData();
@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
           const order = {
             ...data,
             cart: JSON.parse(data.cart),
-            priority: data.priority === "on",
+            priority: data.priority === 'on',
           };
 
           const possibleErrors = {};
@@ -74,6 +74,7 @@ export const router = createBrowserRouter([
 ]);
 
 const App = function () {
+  document.title = 'The Good Pizza';
   return <RouterProvider router={router}></RouterProvider>;
 };
 

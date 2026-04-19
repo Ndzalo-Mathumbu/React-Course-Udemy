@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
+import Button from '../../UI/Button';
 
 // https://uibakery.io/regex-library/phone-number
 export const isValidPhone = (str) =>
@@ -39,46 +40,50 @@ function CreateOrder() {
   const formErrors = useActionData();
 
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
+    <div className="pl-3 pr-3 mt-8">
+      <h2 className="mb-9 text-xl">Ready to order? Let's go!</h2>
 
       <Form method="POST">
-        <div>
-          <label>First Name</label>
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40">First Name</label>
           <input
             type="text"
             name="customer"
             required
-            className="rounded-full md:px-6 md:py-3 text-sm bg-yellow-100 placeholder:text-stone-400  sm:w-full sm:focus:w-70 transition-all duration-500 focus: outline-none focus:ring-yellow-400 focus:ring-2"
+            className="rounded-full md:px-6 md:py-3 text-sm bg-yellow-100 placeholder:text-stone-400  sm:w-full sm:focus:w-70 transition-all duration-500 focus: outline-none focus:ring-yellow-400 focus:ring-2 h-9"
           />
         </div>
 
-        <div>
-          <label>Phone number</label>
-          {formErrors?.phone && <p>{formErrors.phone}</p>}
-          <div>
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40">Phone number</label>
+          {formErrors?.phone && (
+            <p className="text-red-600 text-sm bg-red-100 rounded-md p-2">
+              {formErrors.phone}
+            </p>
+          )}
+          <div className="grow">
             <input
               type="tel"
               name="phone"
               required
-              className="rounded-full md:px-6 md:py-3 text-sm bg-yellow-100 placeholder:text-stone-400 sm:w-full sm:focus:w-70 transition-all duration-500 focus: outline-none focus:ring-yellow-400 focus:ring-2"
+              className="rounded-full md:px-6 md:py-3 text-sm bg-yellow-100 placeholder:text-stone-400 sm:w-full sm:focus:w-70 transition-all duration-500 focus: outline-none focus:ring-yellow-400 focus:ring-2 h-9"
             />
           </div>
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40">Address</label>
+          <div className="grow">
             <input
               type="text"
               name="address"
               required
-              className="rounded-full md:px-6 md:py-3 text-sm bg-yellow-100 placeholder:text-stone-400  sm:w-full sm:focus:w-70 transition-all duration-500 focus: outline-none focus:ring-yellow-400 focus:ring-2 w-full"
+              className="rounded-full md:px-6 md:py-3 text-sm bg-yellow-100 placeholder:text-stone-400  sm:w-full sm:focus:w-70 transition-all duration-500 focus: outline-none focus:ring-yellow-400 focus:ring-2 w-full h-9"
             />
           </div>
         </div>
 
-        <div>
+        <div className="mb-9 sm:mb-12 flex gap-5 items-center">
           <input
             type="checkbox"
             name="priority"
@@ -92,12 +97,9 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button
-            disabled={isSubmitting}
-            className="bg-gradient-to-r from-yellow-300 to-orange-300 inline-block px-2 py-2 font-semibold rounded-full tracking-wide  hover:from-yellow-400 hover:to-orange-400 transition-colors duration-300 focus:outline-none focus:ring focus:ring-yellow-200 focus:ring-offset-2 disabled:cursor-not-allowed"
-          >
+          <Button isSubmitting={isSubmitting} type="primary">
             {isSubmitting ? `ordering` : `Order now`}
-          </button>
+          </Button>
         </div>
       </Form>
     </div>
