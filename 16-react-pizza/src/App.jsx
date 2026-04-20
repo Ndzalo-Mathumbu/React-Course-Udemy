@@ -29,11 +29,15 @@ export const router = createBrowserRouter([
         element: <Menu />,
         loader: async function () {
           const menu = await getMenu();
+
           return menu;
         },
         errorElement: <Error />,
       },
-      { path: '/cart', element: <Cart /> },
+      {
+        path: '/cart',
+        element: <Cart />,
+      },
       {
         path: '/order/:orderId',
         element: <Order />,
