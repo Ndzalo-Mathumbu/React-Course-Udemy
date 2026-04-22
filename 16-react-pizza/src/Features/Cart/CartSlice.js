@@ -98,3 +98,5 @@ export const getPizzaPrices = (state) => {
 
 export const getCurrentQuantityByid = (id) => (state) =>
   state.cart.cart?.find((item) => item.pizzaId === id)?.quantity ?? 0;
+
+export const getCart = (state) => state.cart.cart;

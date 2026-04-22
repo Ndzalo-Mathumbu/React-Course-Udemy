@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import Button from '../../UI/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCart, getPizzaPrices } from '../Cart/CartSlice';
+import EmptyCart from '../Cart/EmptyCart';
+import { formatCurrency } from '../../Utilities/helpers';
+import { fetchAddress } from '../User/userSlice';
 
 // https://uibakery.io/regex-library/phone-number
 export const isValidPhone = (str) =>
@@ -34,16 +38,23 @@ const fakeCart = [
 ];
 
 function CreateOrder() {
-  // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
+  const [withPriority, setWithPriority] = useState(false);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
   const formErrors = useActionData();
+  const cart = useSelector(getCart);
   const username = useSelector((state) => state.user.UserName);
+  const totalPrice = useSelector(getPizzaPrices);
+  const priorityPrice = withPriority ? totalPrice * 0.2 : 0;
+  const totalCartPriceItems = totalPrice + priorityPrice;
+  const dispatch = useDispatch();
 
+  if (!cart.length) return <EmptyCart />;
   return (
     <div className="pl-3 pr-3 mt-8">
-      <h2 className="mb-9 text-xl">Ready to order? Let's go!</h2>
+      <h2 className="mb-9 text-xl">Ready to order? Let‘s go!</h2>
+
+      <button onClick={() => dispatch(fetchAddress())}>position</button>
 
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -91,8 +102,8 @@ function CreateOrder() {
             type="checkbox"
             name="priority"
             id="priority"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
+            value={withPriority}
+            onChange={(e) => setWithPriority(e.target.checked)}
             className="w-6 h-6 accent-orange-300 focus: outline-none focus:ring-yellow-400 focus:ring-2"
           />
           <label htmlFor="priority">Want to yo give your order priority?</label>
@@ -101,7 +112,9 @@ function CreateOrder() {
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <Button isSubmitting={isSubmitting} type="primary">
-            {isSubmitting ? `ordering` : `Order now`}
+            {isSubmitting
+              ? `ordering...`
+              : `Pay ${formatCurrency(totalCartPriceItems)}`}
           </Button>
         </div>
       </Form>

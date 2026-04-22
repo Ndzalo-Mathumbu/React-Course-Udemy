@@ -7,6 +7,8 @@ import { lazy } from 'react';
 import AppLayout from './UI/AppLayout';
 import { createOrder, getMenu, getOrder } from './Services/apiRestaurant';
 import { isValidPhone } from './Features/Order/CreateOrder';
+import store from '../store';
+import { clearCart } from './Features/Cart/CartSlice';
 
 const Home = lazy(() => import('./UI/Home'));
 const Menu = lazy(() => import('./Features/Menu/Menu'));
@@ -58,7 +60,7 @@ export const router = createBrowserRouter([
           const order = {
             ...data,
             cart: JSON.parse(data.cart),
-            priority: data.priority === 'on',
+            priority: data.priority === 'true',
           };
 
           const possibleErrors = {};
@@ -69,7 +71,9 @@ export const router = createBrowserRouter([
 
           const newOrder = await createOrder(order);
 
-          console.log(order);
+          // do not use too much, it makes perfomance slow.
+          store.dispatch(clearCart());
+
           return redirect(`/order/${newOrder.id}`);
         },
       },

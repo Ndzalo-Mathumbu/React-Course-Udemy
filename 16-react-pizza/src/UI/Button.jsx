@@ -4,6 +4,7 @@ function Button({ children, isSubmitting, type, onClick }) {
   const styles = {
     primary: base + ' px-4 py-3 sm:px-6 sm:py-4',
     small: base + ' px-4 py-2 md:px-5 md:py-2.5 text-sm',
+    round: base + 'px-1 py-1 md:px-1 md:py-1 text-[9px]',
   };
 
   return (

@@ -4,6 +4,7 @@ import Loader from '../../UI/Loader';
 import { formatCurrency } from '../../Utilities/helpers';
 import { addItem, getCurrentQuantityByid } from '../Cart/CartSlice';
 import DeleteItem from '../Cart/DeleteItem';
+import UpdateItemQuantity from '../Cart/UpdateItemQuantity';
 
 function MenuItem({ pizza }) {
   if (!pizza) {
@@ -50,7 +51,15 @@ function MenuItem({ pizza }) {
               Sold out
             </p>
           )}
-          {isInCart && <DeleteItem pizzaId={id} />}
+          {isInCart && (
+            <div className="flex gap-1 sm:gap-5">
+              <UpdateItemQuantity
+                pizzaId={id}
+                pizzaQuantityInCart={currentQuantity}
+              />
+              <DeleteItem pizzaId={id} />
+            </div>
+          )}
           {!soldOut && !isInCart && (
             <>
               <Button type="small" onClick={handleAddToCart}>
