@@ -2,10 +2,19 @@ import { Link } from 'react-router-dom';
 
 function EmptyCart() {
   return (
-    <div>
-      <Link to="/menu">&larr; Back to menu</Link>
+    <div className="p-4">
+      <Link
+        to="/menu"
+        className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+      >
+        &larr; Back to menu
+      </Link>
 
-      <p>Your cart is still empty. Start adding some pizzas :)</p>
+      <div className="flex items-center justify-center mt-36">
+        <p className="text-xl text-gray-500">
+          Your cart is empty. Start adding some pizzas 😀
+        </p>
+      </div>
     </div>
   );
 }

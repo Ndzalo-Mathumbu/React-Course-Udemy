@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   cart: [
-    {
+    /* {
       pizzaId: 12,
       name: 'My Good Pizza',
       quantity: 2,
@@ -19,10 +19,17 @@ const initialState = {
     {
       pizzaId: 11,
       name: 'Spinach and Mushroom',
-      quantity: 1,
+      quantity: 5,
       unitPrice: 15,
       totalPrice: 15,
     },
+    {
+      pizzaId: 887,
+      name: 'Ndzalo pizza',
+      quantity: 1,
+      unitPrice: 15,
+      totalPrice: 15,
+    }, */
   ],
 };
 
@@ -32,20 +39,36 @@ const cartSlice = createSlice({
   reducers: {
     addItem(state, action) {
       //payload = new item
-      return [...state.cart, action.payload];
+      state.cart.push(action.payload);
     },
     deleteItem(state, action) {
       //payload = id of the item
-      return state.cart.filter((pizza) => pizza.pizzaID !== action.payload);
+      state.cart = state.cart.filter(
+        (pizza) => pizza.pizzaId !== action.payload,
+      );
     },
     increaseQuantity(state, action) {
-      const item = state.cart.find((pizza) => pizza.pizzaID === action.payload);
+      const item = state.cart.find((pizza) => pizza.pizzaId === action.payload);
+
+      if (!item) return;
+
       item.quantity++;
       item.totalPrice = item.quantity * item.unitPrice;
     },
     decreaseQuantity(state, action) {
-      const item = state.cart.find((pizza) => pizza.pizzaID === action.payload);
+      const item = state.cart.find((pizza) => pizza.pizzaId === action.payload);
+
+      if (!item) return;
+
       item.quantity--;
+
+      if (item.quantity <= 0) {
+        state.cart = state.cart.filter(
+          (pizza) => pizza.pizzaId !== action.payload,
+        );
+        return;
+      }
+
       item.totalPrice = item.quantity * item.unitPrice;
     },
     clearCart(state) {
@@ -62,3 +85,16 @@ export const {
   clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;
+
+export const getPizzaQuantity = (state) => {
+  const cart = state.cart.cart || [];
+  return cart.reduce((accum, item) => accum + item.quantity, 0);
+};
+
+export const getPizzaPrices = (state) => {
+  const cart = state.cart.cart || [];
+  return cart.reduce((accum, item) => accum + item.totalPrice, 0);
+};
+
+export const getCurrentQuantityByid = (id) => (state) =>
+  state.cart.cart?.find((item) => item.pizzaId === id)?.quantity ?? 0;
