@@ -5,7 +5,12 @@ import {
 } from 'react-router-dom';
 import { lazy } from 'react';
 import AppLayout from './UI/AppLayout';
-import { createOrder, getMenu, getOrder } from './Services/apiRestaurant';
+import {
+  createOrder,
+  getMenu,
+  getOrder,
+  updateOrder,
+} from './Services/apiRestaurant';
 import { isValidPhone } from './Features/Order/CreateOrder';
 import store from '../store';
 import { clearCart } from './Features/Cart/CartSlice';
@@ -48,6 +53,11 @@ export const router = createBrowserRouter([
           return order;
         },
         errorElement: <Error />,
+        action: async function ({ request, params }) {
+          const data = { priority: true };
+          await updateOrder(params.orderId, data);
+          return null;
+        },
       },
       {
         path: '/order/new',
@@ -55,7 +65,6 @@ export const router = createBrowserRouter([
         action: async function ({ request }) {
           const formData = await request.formData();
           const data = Object.fromEntries(formData);
-          console.log(data);
 
           const order = {
             ...data,

@@ -43,18 +43,25 @@ function CreateOrder() {
   const isSubmitting = navigation.state === 'submitting';
   const formErrors = useActionData();
   const cart = useSelector(getCart);
-  const username = useSelector((state) => state.user.UserName);
+  const {
+    username,
+    status: addressStatus,
+    position,
+    address,
+    error: errorAdress,
+  } = useSelector((state) => state.user);
   const totalPrice = useSelector(getPizzaPrices);
   const priorityPrice = withPriority ? totalPrice * 0.2 : 0;
   const totalCartPriceItems = totalPrice + priorityPrice;
   const dispatch = useDispatch();
+  const isLoadingAddress = addressStatus === 'loading';
 
   if (!cart.length) return <EmptyCart />;
   return (
     <div className="pl-3 pr-3 mt-8">
       <h2 className="mb-9 text-xl">Ready to order? Let‘s go!</h2>
 
-      <button onClick={() => dispatch(fetchAddress())}>position</button>
+      {/* <button onClick={() => dispatch(fetchAddress())}>position</button> */}
 
       <Form method="POST">
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -85,16 +92,37 @@ function CreateOrder() {
           </div>
         </div>
 
-        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center relative ">
           <label className="sm:basis-40">Address</label>
           <div className="grow">
             <input
               type="text"
               name="address"
+              disabled={isLoadingAddress}
+              defaultValue={address}
               required
               className="rounded-full md:px-6 md:py-3 text-sm bg-yellow-100 placeholder:text-stone-400  sm:w-full sm:focus:w-70 transition-all duration-500 focus: outline-none focus:ring-yellow-400 focus:ring-2 w-full h-9"
             />
+            {addressStatus === 'error' && (
+              <p className="text-red-600 text-sm bg-red-100 rounded-md p-2">
+                {errorAdress}
+              </p>
+            )}
           </div>
+          <span className="absolute right-[3px] z-50">
+            {!position.latitude && !position.longitude && (
+              <Button
+                disabled={isLoadingAddress}
+                type="small"
+                onClick={(e) => {
+                  dispatch(fetchAddress());
+                  e.preventDefault();
+                }}
+              >
+                Get Position
+              </Button>
+            )}
+          </span>
         </div>
 
         <div className="mb-9 sm:mb-12 flex gap-5 items-center">
@@ -111,7 +139,19 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button isSubmitting={isSubmitting} type="primary">
+          <input
+            type="hidden"
+            name="position"
+            value={
+              position.longitude && position.latitude
+                ? `${position.latitude},${position.longitude}`
+                : ''
+            }
+          />
+          <Button
+            isSubmitting={isSubmitting || isLoadingAddress}
+            type="primary"
+          >
             {isSubmitting
               ? `ordering...`
               : `Pay ${formatCurrency(totalCartPriceItems)}`}
