@@ -7,12 +7,13 @@ const StyledLogo = styled.div`
 const Img = styled.img`
   height: 9.6rem;
   width: auto;
+  z-index: 1;
 `;
 
 function Logo() {
   return (
     <StyledLogo>
-      <Img src="/logo-light.png" alt="Logo" />
+      <Img src="../../public/logo-light.png" alt="Logo" />
     </StyledLogo>
   );
 }
