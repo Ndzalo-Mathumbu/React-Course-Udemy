@@ -2,10 +2,10 @@ import { Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import Header from "./Header";
 import styled from "styled-components";
+import { Suspense } from "react";
 
 const Main = styled.main`
   background-color: var(--color-grey-50);
-
   padding: 4rem 4.5rem 6.3rem;
 `;
 
@@ -22,7 +22,9 @@ function AppLayout() {
       <Header />
       <SideBar />
       <Main>
-        <Outlet />
+        <Suspense fallback="Loading...">
+          <Outlet />
+        </Suspense>
       </Main>
     </StyledAppLayOut>
   );
