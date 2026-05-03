@@ -12,11 +12,11 @@ const StyledSiderBar = styled.aside`
   gap: 3.2rem;
 `;
 
-function SideBar() {
+function SideBar({ onShowForm }) {
   return (
     <StyledSiderBar>
       <Logo />
-      <MainNav />
+      <MainNav onShowForm={onShowForm} />
     </StyledSiderBar>
   );
 }

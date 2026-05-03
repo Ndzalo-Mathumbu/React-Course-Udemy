@@ -2,8 +2,10 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 import CabinTable from "../features/cabins/CabinTable";
+import Button from "../ui/Button";
+import CreateCabinForm from "../features/cabins/CreateCabinForm";
 
-function Cabins() {
+function Cabins({ showForm, setShowForm }) {
   return (
     <>
       <Row type="horizontal">
@@ -12,8 +14,9 @@ function Cabins() {
         {/* <img src="https://ywucaamsuyzalyxdhjlv.supabase.co/storage/v1/object/public/cabin-img/cabin-001.jpg" /> */}
       </Row>
       <Row>
-        <CabinTable></CabinTable>
+        <CabinTable />
       </Row>
+      {showForm && <CreateCabinForm />}
     </>
   );
 }

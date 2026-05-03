@@ -7,6 +7,7 @@ import { Suspense } from "react";
 const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.5rem 6.3rem;
+  overflow: scroll;
 `;
 
 const StyledAppLayOut = styled.div`
@@ -16,14 +17,25 @@ const StyledAppLayOut = styled.div`
   grid-template-rows: auto 1fr;
 `;
 
-function AppLayout() {
+const Container = styled.div`
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+`;
+
+function AppLayout({ onShowForm }) {
   return (
     <StyledAppLayOut>
       <Header />
-      <SideBar />
+      <SideBar onShowForm={onShowForm} />
       <Main>
         <Suspense fallback="Loading...">
-          <Outlet />
+          <Container>
+            {" "}
+            <Outlet />
+          </Container>
         </Suspense>
       </Main>
     </StyledAppLayOut>

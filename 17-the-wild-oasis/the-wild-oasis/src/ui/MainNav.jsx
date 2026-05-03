@@ -7,6 +7,8 @@ import {
   HiOutlineUsers,
   HiOutlineCog6Tooth,
 } from "react-icons/hi2";
+import { MdOutlineLibraryAddCheck } from "react-icons/md";
+import Button from "../ui/Button";
 
 const NavList = styled.ul`
   display: flex;
@@ -53,7 +55,7 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-function MainNav() {
+function MainNav({ onShowForm }) {
   return (
     <nav>
       <NavList>
@@ -74,6 +76,13 @@ function MainNav() {
             <HiOutlineHomeModern />
 
             <span>Cabins</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/cabins">
+            <MdOutlineLibraryAddCheck />
+
+            <Button onClick={() => onShowForm((a) => !a)}>New cabin</Button>
           </StyledNavLink>
         </li>
         <li>
