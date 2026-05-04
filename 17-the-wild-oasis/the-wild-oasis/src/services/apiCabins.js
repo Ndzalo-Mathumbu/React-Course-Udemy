@@ -40,7 +40,8 @@ const addCabin = async function (newCabin) {
     const { data: Cabin, error } = await supabase
       .from("Cabins")
       .insert([{ ...newCabin, image: imagePath }])
-      .select();
+      .select()
+      .single();
 
     if (error) throw new Error("Could not create cabin 😕");
 
@@ -54,8 +55,7 @@ const addCabin = async function (newCabin) {
       await supabase.from("Cabins").delete().eq("id", Cabin[0].id);
       throw new Error("Could not upload image 😕");
     }
-    console.log(imageFile instanceof File);
-    console.log(newCabin.image);
+
     return Cabin;
   } catch (error) {
     console.error(error);
@@ -63,5 +63,71 @@ const addCabin = async function (newCabin) {
   }
 };
 
-export { deleteCabin, addCabin };
+/* const createEditCabin = async function (newCabin, id) {
+  try {
+    const hasImgPath = newCabin.image?.startsWith?.(supabase_URL);
+    // 1. Get actual file
+    const imageFile = newCabin.image;
+
+    // 2. Create unique name
+    const imageName = `${Math.random()}-${imageFile?.name}`.replaceAll("/", "");
+
+    // 3. Build image path
+    const imagePath = hasImgPath
+      ? newCabin.image
+      : `${supabase_URL}/storage/v1/object/public/cabin-img/${imageName}`;
+
+    // 4. Insert/create,edit cabin
+    let query = supabase.from("Cabins");
+    //a) Create
+    if (!id) query = query.insert([{ ...newCabin, image: imagePath }]);
+    //d) edit
+    if (id)
+      query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
+    if (query.error) throw new Error("Could not create cabin 😕");
+  } catch (error) {
+    console.error(error);
+    toast.error(error.message);
+  }
+}; */
+
+const createEditCabin = async function (newCabin, id) {
+  try {
+    const hasImgPath = newCabin.image?.startsWith?.(supabase_URL);
+
+    const imageFile = newCabin.image;
+
+    const imageName = `${Math.random()}-${imageFile?.name}`.replaceAll("/", "");
+
+    const imagePath = hasImgPath
+      ? newCabin.image
+      : `${supabase_URL}/storage/v1/object/public/cabin-img/${imageName}`;
+
+    let query = supabase.from("Cabins");
+
+    // CREATE
+    if (!id) {
+      query = query.insert([{ ...newCabin, image: imagePath }]).select();
+    }
+
+    // UPDATE
+    if (id) {
+      query = query
+        .update({ ...newCabin, image: imagePath })
+        .eq("id", id)
+        .select();
+    }
+
+    const { data, error } = await query;
+
+    if (error) throw new Error(error.message);
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    toast.error(error.message);
+  }
+};
+
+export { deleteCabin, addCabin, createEditCabin };
 export default getCabins;
