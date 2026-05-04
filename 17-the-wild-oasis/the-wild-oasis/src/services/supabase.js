@@ -7,4 +7,5 @@ const supabase_Publishable_Key =
 
 const supabase = createClient(supabase_URL, supabase_Publishable_Key);
 
+export { supabase_URL };
 export default supabase;

@@ -3,6 +3,8 @@ import { formatCurrency } from "../../utils/helpers";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import CreateCabinForm from "../cabins/CreateCabinForm";
 
 const TableRow = styled.div`
   display: grid;
@@ -44,6 +46,7 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }) {
+  const [renderForm, setRenderForm] = useState(false);
   const queryClient = useQueryClient();
 
   const {
@@ -70,16 +73,25 @@ function CabinRow({ cabin }) {
   });
 
   return (
-    <TableRow role="row">
-      <Img src={image} />
-      <Cabin>{name}</Cabin>
-      <div>Max geusts ({maxCapacity})</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
-      <button onClick={() => mutate(cabins)} disabled={isLoading}>
-        Remove
-      </button>
-    </TableRow>
+    <>
+      <TableRow role="row">
+        <Img src={image} />
+        <Cabin>{name}</Cabin>
+        <div>Max geusts ({maxCapacity})</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        <Discount>{formatCurrency(discount)}</Discount>
+        <div>
+          {" "}
+          <button onClick={() => setRenderForm((a) => !a)} disabled={isLoading}>
+            Edit
+          </button>
+          <button onClick={() => mutate(cabins)} disabled={isLoading}>
+            Remove
+          </button>
+        </div>
+      </TableRow>
+      {renderForm && <CreateCabinForm cabinToEdit={cabin} />}
+    </>
   );
 }
 
