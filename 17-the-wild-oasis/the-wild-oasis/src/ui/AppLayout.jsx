@@ -3,6 +3,7 @@ import SideBar from "./SideBar";
 import Header from "./Header";
 import styled from "styled-components";
 import { Suspense } from "react";
+import Spinner from "./Spinner";
 
 const Main = styled.main`
   background-color: var(--color-grey-50);
@@ -31,7 +32,7 @@ function AppLayout({ onShowForm }) {
       <Header />
       <SideBar onShowForm={onShowForm} />
       <Main>
-        <Suspense fallback="Loading...">
+        <Suspense fallback={<Spinner />}>
           <Container>
             {" "}
             <Outlet />
