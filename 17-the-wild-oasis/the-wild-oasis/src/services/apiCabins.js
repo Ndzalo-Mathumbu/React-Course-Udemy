@@ -31,8 +31,8 @@ const addCabin = async function (newCabin) {
     const imageFile = newCabin.image;
 
     // 2. Create unique name
-    const imageName = `${Math.random()}-${imageFile?.name}`.replaceAll("/", "");
-
+    const imageName = `${Date.now()}-${imageFile?.name}`.replaceAll("/", "");
+    console.log(imageName, "004");
     // 3. Build image path
     const imagePath = `${supabase_URL}/storage/v1/object/public/cabin-img/${imageName}`;
 
@@ -46,6 +46,7 @@ const addCabin = async function (newCabin) {
     if (error) throw new Error("Could not create cabin 😕");
 
     // 5. Upload image
+
     const { error: storageError } = await supabase.storage
       .from("cabin-img")
       .upload(imageName, imageFile);
@@ -93,11 +94,11 @@ const addCabin = async function (newCabin) {
 
 const createEditCabin = async function (newCabin, id) {
   try {
-    const hasImgPath = newCabin.image?.startsWith?.(supabase_URL);
+    const hasImgPath = newCabin?.image?.startsWith?.(supabase_URL);
 
-    const imageFile = newCabin.image;
+    const imageFile = newCabin?.image;
 
-    const imageName = `${Math.random()}-${imageFile?.name}`.replaceAll("/", "");
+    const imageName = `${Date.now()}-${imageFile?.name}`.replaceAll("/", "");
 
     const imagePath = hasImgPath
       ? newCabin.image

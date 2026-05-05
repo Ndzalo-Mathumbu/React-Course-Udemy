@@ -5,7 +5,7 @@ import CabinTable from "../features/cabins/CabinTable";
 import Button from "../ui/Button";
 import CreateCabinForm from "../features/cabins/CreateCabinForm";
 
-function Cabins({ showForm, setShowForm }) {
+function Cabins({ showForm }) {
   return (
     <>
       <Row type="horizontal">
