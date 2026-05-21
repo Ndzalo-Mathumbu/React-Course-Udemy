@@ -79,13 +79,6 @@ function MainNav({ onShowForm }) {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/cabins">
-            <MdOutlineLibraryAddCheck />
-
-            <Button onClick={() => onShowForm((a) => !a)}>New cabin</Button>
-          </StyledNavLink>
-        </li>
-        <li>
           <StyledNavLink to="/users">
             <HiOutlineUsers />
             <span>Users</span>

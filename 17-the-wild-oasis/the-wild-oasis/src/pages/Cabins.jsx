@@ -29,15 +29,15 @@ function Cabins({ showForm: IsShowModal, onShowForm: onHideModal }) {
           <Button>Add New Cabin</Button>
         </Modal.Open>
         <Modal.Window name="cabin-form">
-          <CreateCabinForm />
+          <CreateCabinForm onCloseModal={() => onHideModal((a) => !a)} />
         </Modal.Window>
 
-        {/* <Modal.Open opens="table">
+        <Modal.Open opens="table">
           <Button>Show Table</Button>
         </Modal.Open>
         <Modal.Window name="table">
-          <CreateCabinForm />
-        </Modal.Window> */}
+          <CabinTable />
+        </Modal.Window>
       </Modal>
     </>
   );
