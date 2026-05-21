@@ -3,7 +3,7 @@ import { addCabin, createEditCabin } from "../../../services/apiCabins";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
-function useCreateEditCabin() {
+function useCreateEditCabin(onCloseModal) {
   const { reset } = useForm();
 
   //Create cabin
@@ -14,6 +14,7 @@ function useCreateEditCabin() {
     onSuccess: () => {
       toast.success("New cabin successfully created");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      onCloseModal?.();
       reset();
     },
   });

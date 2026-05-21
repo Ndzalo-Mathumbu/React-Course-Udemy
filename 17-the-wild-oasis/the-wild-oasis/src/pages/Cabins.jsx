@@ -2,21 +2,43 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 import CabinTable from "../features/cabins/CabinTable";
-import Button from "../ui/Button";
 import CreateCabinForm from "../features/cabins/CreateCabinForm";
+import Modal from "../ui/Modal";
+import Button from "../ui/Button";
 
-function Cabins({ showForm }) {
+function Cabins({ showForm: IsShowModal, onShowForm: onHideModal }) {
   return (
     <>
       <Row type="horizontal">
         <Heading as="h1">All cabins</Heading>
         <p>Filter/Sort</p>
-        {/* <img src="https://ywucaamsuyzalyxdhjlv.supabase.co/storage/v1/object/public/cabin-img/cabin-001.jpg" /> */}
       </Row>
       <Row>
         <CabinTable />
       </Row>
-      {showForm && <CreateCabinForm />}
+      {/* {IsShowModal && (
+        <Modal onClose={() => onHideModal((a) => !a)}>
+          <CreateCabinForm onCloseModal={() => onHideModal((a) => !a)} />
+        </Modal>
+      )} */}
+
+      {/* Create a compound component for the Modal */}
+
+      <Modal>
+        <Modal.Open opens="cabin-form">
+          <Button>Add New Cabin</Button>
+        </Modal.Open>
+        <Modal.Window name="cabin-form">
+          <CreateCabinForm />
+        </Modal.Window>
+
+        {/* <Modal.Open opens="table">
+          <Button>Show Table</Button>
+        </Modal.Open>
+        <Modal.Window name="table">
+          <CreateCabinForm />
+        </Modal.Window> */}
+      </Modal>
     </>
   );
 }
