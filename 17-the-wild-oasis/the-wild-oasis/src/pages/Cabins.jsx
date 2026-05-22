@@ -24,21 +24,23 @@ function Cabins({ showForm: IsShowModal, onShowForm: onHideModal }) {
 
       {/* Create a compound component for the Modal */}
 
-      <Modal>
-        <Modal.Open opens="cabin-form">
-          <Button>Add New Cabin</Button>
-        </Modal.Open>
-        <Modal.Window name="cabin-form">
-          <CreateCabinForm onCloseModal={() => onHideModal((a) => !a)} />
-        </Modal.Window>
+      <div>
+        <Modal>
+          <Modal.Open opens="cabin-form">
+            <Button>Add New Cabin</Button>
+          </Modal.Open>
+          <Modal.Window name="cabin-form">
+            <CreateCabinForm onCloseModal={() => onHideModal((a) => !a)} />
+          </Modal.Window>
 
-        <Modal.Open opens="table">
-          <Button>Show Table</Button>
-        </Modal.Open>
-        <Modal.Window name="table">
-          <CabinTable />
-        </Modal.Window>
-      </Modal>
+          {/* <Modal.Open opens="table">
+            <Button>Show Table</Button>
+          </Modal.Open>
+          <Modal.Window name="table">
+            <CabinTable />
+          </Modal.Window> */}
+        </Modal>
+      </div>
     </>
   );
 }
