@@ -8,6 +8,7 @@ import useCreateEditCabin from "./useCreate/useCreateEditCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 const Img = styled.img`
   display: block;
@@ -84,19 +85,30 @@ function CabinRow({ cabin }) {
             <HiSquare2Stack />
           </button> */}
           <Modal>
-            <Modal.Open opens="edit">
-              <button disabled={isLoading} title="Edit">
-                <HiPencil />
-              </button>
-            </Modal.Open>
+            <Menus.Menu>
+              <Menus.Toggle id={cabins} />
+              <Menus.List id={cabins}>
+                <Modal.Open opens="edit">
+                  <button disabled={isLoading} title="Edit">
+                    <Menus.Button>
+                      <HiPencil /> Edit
+                    </Menus.Button>
+                  </button>
+                </Modal.Open>
+                <Modal.Open opens="delete">
+                  <button disabled={isLoading} title="Remove">
+                    <Menus.Button>
+                      <HiTrash /> Delete
+                    </Menus.Button>
+                  </button>
+                </Modal.Open>
+              </Menus.List>
+            </Menus.Menu>
+
             <Modal.Window name="edit">
               <CreateCabinForm cabinToEdit={cabin} />
             </Modal.Window>
-            <Modal.Open opens="delete">
-              <button disabled={isLoading} title="Remove">
-                <HiTrash />
-              </button>
-            </Modal.Open>
+
             <Modal.Window name="delete">
               <ConfirmDelete
                 resourceName="cabins"
@@ -105,6 +117,17 @@ function CabinRow({ cabin }) {
               />
             </Modal.Window>
           </Modal>
+          {/* <Menus.Menu>
+            <Menus.Toggle id={cabins} />
+            <Menus.List id={cabins}>
+              <Menus.Button>
+                <HiPencil /> Edit
+              </Menus.Button>
+              <Menus.Button>
+                <HiTrash /> Delete
+              </Menus.Button>
+            </Menus.List>
+          </Menus.Menu> */}
         </div>
       </Table.Row>
     </>
