@@ -3,6 +3,7 @@ import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import useFetchCabins from "./useFetchCabins";
 import Menus from "../../ui/Menus";
+import { useSearchParams } from "react-router-dom";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -30,9 +31,8 @@ const TableHeader = styled.header`
 
 function CabinTable() {
   const { isLoading, data: cabins, error } = useFetchCabins();
-
+  // const [searchParams] = useSearchParams();
   if (isLoading) return <Spinner />;
-
   return (
     <Menus>
       <Table role="table">

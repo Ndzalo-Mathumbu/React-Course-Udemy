@@ -5,13 +5,14 @@ import CabinTable from "../features/cabins/CabinTable";
 import CreateCabinForm from "../features/cabins/CreateCabinForm";
 import Modal from "../ui/Modal";
 import Button from "../ui/Button";
+import CabinTableOperations from "../features/cabins/cabinTableOperations";
 
 function Cabins({ showForm: IsShowModal, onShowForm: onHideModal }) {
   return (
     <>
       <Row type="horizontal">
         <Heading as="h1">All cabins</Heading>
-        <p>Filter/Sort</p>
+        <CabinTableOperations />
       </Row>
       <Row>
         <CabinTable />
