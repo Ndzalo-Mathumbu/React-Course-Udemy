@@ -21,12 +21,12 @@ async function deleteGuests() {
 }
 
 async function deleteCabins() {
-  const { error } = await supabase.from("cabins").delete().gt("id", 0);
+  const { error } = await supabase.from("Cabins").delete().gt("id", 0);
   if (error) console.log(error.message);
 }
 
 async function deleteBookings() {
-  const { error } = await supabase.from("bookings").delete().gt("id", 0);
+  const { error } = await supabase.from("Bookings").delete().gt("id", 0);
   if (error) console.log(error.message);
 }
 
@@ -36,7 +36,7 @@ async function createGuests() {
 }
 
 async function createCabins() {
-  const { error } = await supabase.from("cabins").insert(cabins);
+  const { error } = await supabase.from("Cabins").insert(cabins);
   if (error) console.log(error.message);
 }
 
@@ -48,7 +48,7 @@ async function createBookings() {
     .order("id");
   const allGuestIds = guestsIds.map((cabin) => cabin.id);
   const { data: cabinsIds } = await supabase
-    .from("cabins")
+    .from("Cabins")
     .select("id")
     .order("id");
   const allCabinIds = cabinsIds.map((cabin) => cabin.id);
@@ -96,7 +96,7 @@ async function createBookings() {
 
   console.log(finalBookings);
 
-  const { error } = await supabase.from("bookings").insert(finalBookings);
+  const { error } = await supabase.from("Bookings").insert(finalBookings);
   if (error) console.log(error.message);
 }
 

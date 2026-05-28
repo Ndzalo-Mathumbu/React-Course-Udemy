@@ -1,4 +1,7 @@
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { PAGE_SIZE } from "../utils/constants";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -18,7 +21,7 @@ const P = styled.p`
 
 const Buttons = styled.div`
   display: flex;
-  gap: 0.6rem;
+  gap: 0rem;
 `;
 
 const PaginationButton = styled.button`
@@ -33,7 +36,7 @@ const PaginationButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.1rem;
   padding: 0.6rem 1.2rem;
   transition: all 0.3s;
 
@@ -55,3 +58,97 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+function Pagination({ count }) {
+  /* const [searchParams, setSearchParams] = useSearchParams();
+  const currentPge = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+  const handleNextPage = function () {
+    const next = currentPge === pageCount ? currentPge : currentPge + 1;
+    searchParams.set("page", next);
+    setSearchParams(searchParams);
+  };
+  const handlePreviousPage = function () {
+    const prevPage = currentPge === 1 ? currentPge : currentPge - 1;
+    searchParams.set("page", prevPage);
+    setSearchParams(searchParams); */
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Get current page from URL (?page=2)
+  // Default to page 1 if nothing is set
+  const currentPage = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
+
+  // Total number of pages based on total items
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+
+  // Go to next page (but don't exceed last page)
+  const handleNextPage = function () {
+    const next =
+      currentPage === pageCount
+        ? currentPage // stay on last page if already there
+        : currentPage + 1; // otherwise move forward
+
+    // Create a copy of current URL params (important: don't mutate original)
+    const newParams = new URLSearchParams(searchParams);
+
+    // Update page in URL
+    newParams.set("page", next);
+
+    // Push updated params to URL (triggers re-render)
+    setSearchParams(newParams);
+  };
+
+  // Go to previous page (but don't go below page 1)
+  const handlePreviousPage = function () {
+    const prevPage =
+      currentPage === 1
+        ? currentPage // stay on page 1 if already there
+        : currentPage - 1; // otherwise move back
+
+    // Clone current URL params to avoid mutation bugs
+    const newParams = new URLSearchParams(searchParams);
+
+    // Update page in URL
+    newParams.set("page", prevPage);
+
+    // Apply updated URL params
+    setSearchParams(newParams);
+  };
+
+  return (
+    <StyledPagination>
+      <p>
+        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span>-
+        <span>
+          {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
+        </span>{" "}
+        of <span>{count}</span> results
+      </p>
+      <Buttons>
+        <PaginationButton
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          <HiChevronLeft />
+          <span>Previous</span>
+        </PaginationButton>
+      </Buttons>
+      <Buttons>
+        <PaginationButton
+          onClick={handleNextPage}
+          disabled={currentPage === pageCount}
+        >
+          <span>Next</span>
+          <HiChevronRight />
+        </PaginationButton>
+      </Buttons>
+    </StyledPagination>
+  );
+}
+
+export default Pagination;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Logo from "./Logo";
 import MainNav from "./MainNav";
+import Uploader from "../data/Uploader";
 
 const StyledSiderBar = styled.aside`
   background-color: var(--color-grey-0);
@@ -12,11 +13,12 @@ const StyledSiderBar = styled.aside`
   gap: 3.2rem;
 `;
 
-function SideBar({ onShowForm }) {
+function SideBar() {
   return (
     <StyledSiderBar>
       <Logo />
-      <MainNav onShowForm={onShowForm} />
+      <MainNav />
+      <Uploader />
     </StyledSiderBar>
   );
 }
