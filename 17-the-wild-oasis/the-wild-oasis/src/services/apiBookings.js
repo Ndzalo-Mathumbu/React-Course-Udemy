@@ -1,6 +1,19 @@
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
+export const getBookings = async function () {
+  try {
+    const { data, error } = await supabase
+      .from("Bookings")
+      .select("*,guests(fullName,email),Cabins(name)");
+    if (error) throw new Error("Could not load bookings 😕");
+    return data;
+  } catch (error) {
+    console.error(error, "😡");
+    throw error;
+  }
+};
+
 export async function getBooking(id) {
   const { data, error } = await supabase
     .from("bookings")
@@ -55,7 +68,7 @@ export async function getStaysTodayActivity() {
     .from("bookings")
     .select("*, guests(fullName, nationality, countryFlag)")
     .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
+      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`,
     )
     .order("created_at");
 
