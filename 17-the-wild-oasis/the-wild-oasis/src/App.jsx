@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Bookings = lazy(() => import("./pages/Bookings"));
 const Booking = lazy(() => import("./pages/Booking"));
+const CheckIn = lazy(() => import("./pages/Checkin"));
 const Cabins = lazy(() => import("./pages/Cabins"));
 const Users = lazy(() => import("./pages/Users"));
 const Settings = lazy(() => import("./pages/Settings"));
@@ -25,7 +26,6 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const [showForm, setShowForm] = useState(false);
   return (
     <>
       <GlobalStyles />
@@ -36,6 +36,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />
             <Route path="bookings/:bookingId" element={<Booking />} />
+            <Route path="checkin/:bookingId" element={<CheckIn />} />
             <Route path="cabins" element={<Cabins />} />
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />

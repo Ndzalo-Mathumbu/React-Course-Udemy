@@ -18,7 +18,7 @@ const Heading = styled.h1`
     ${({ as }) =>
     as === "h3" &&
     css`
-      color: #ff00bb;
+      color: #c60000;
       background-color: var(--color-grey-0);
       font-size: 2rem;
     `}

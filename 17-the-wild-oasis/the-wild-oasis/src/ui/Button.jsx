@@ -62,4 +62,20 @@ Button.defaultProps = {
   size: "medium",
 };
 
+const DeleteButton = styled.button`
+  border: solid red 1px;
+  background-color: #ff00003c;
+  color: red;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  padding: 0.8rem 0.8rem;
+  ${(props) => variations[props.variation]}
+  ${(props) => variations[props.size]}
+`;
+
+Button.defaultProps = {
+  variation: "primary",
+  size: "medium",
+};
+export { DeleteButton };
 export default Button;

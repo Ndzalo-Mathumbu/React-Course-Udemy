@@ -103,9 +103,9 @@ const Footer = styled.footer`
 
 // A purely presentational component
 function BookingDataBox({ booking }) {
+  console.log(booking);
   const {
     created_at,
-    startDate,
     endDate,
     numNights,
     numGuests,
@@ -115,10 +115,14 @@ function BookingDataBox({ booking }) {
     hasBreakfast,
     observations,
     isPaid,
-    guests: { fullName: guestName, email, country, countryFlag, nationalID },
-    Cabins: { name },
+    guests,
+    Cabins,
   } = booking;
 
+  const { fullName, email, country, countryFlag, nationalID } = guests || {};
+  const { name } = Cabins || {};
+  const startDate = booking?.startDate;
+  console.log(startDate);
   return (
     <StyledBookingDataBox>
       <Header>
@@ -129,20 +133,20 @@ function BookingDataBox({ booking }) {
           </p>
         </div>
 
-        <p>
+        {/* <p>
           {format(new Date(startDate), "EEE, MMM dd yyyy")} (
           {isToday(new Date(startDate))
             ? "Today"
             : formatDistanceFromNow(startDate)}
           ) &mdash; {format(new Date(endDate), "EEE, MMM dd yyyy")}
-        </p>
+        </p> */}
       </Header>
 
       <Section>
         <Guest>
           {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
           <p>
-            {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ""}
+            {fullName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ""}
           </p>
           <span>&bull;</span>
           <p>{email}</p>
@@ -178,7 +182,7 @@ function BookingDataBox({ booking }) {
       </Section>
 
       <Footer>
-        <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p>
+        {/* <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p> */}
       </Footer>
     </StyledBookingDataBox>
   );

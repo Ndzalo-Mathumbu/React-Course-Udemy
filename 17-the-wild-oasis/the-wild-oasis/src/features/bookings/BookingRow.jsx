@@ -3,12 +3,21 @@ import { format, isToday } from "date-fns";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
+import Modal from "../../ui/Modal";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
-import { HiEye } from "react-icons/hi2";
+import {
+  HiArrowDownOnSquare,
+  HiArrowUpOnSquare,
+  HiEye,
+  HiTrash,
+} from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import useCheckOut from "../check-in-out/useCheck-out";
+import useDeleteGuest from "./useDeleteGuest";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -56,42 +65,77 @@ function BookingRow({ booking }) {
     "checked-out": "silver",
   };
 
-  console.log(bookingId);
   const navigate = useNavigate();
+  const { checkout, isCheckingout } = useCheckOut();
+  const { deleteGuest, isDeletingGuest } = useDeleteGuest();
   return (
     <Table.Row>
-      <Cabin>{name}</Cabin>
+      <Modal>
+        <Cabin>{name}</Cabin>
 
-      <Stacked>
-        <span>{fullName}</span>
-        <span>{email}</span>
-      </Stacked>
+        <Stacked>
+          <span>{fullName}</span>
+          <span>{email}</span>
+        </Stacked>
 
-      <Stacked>
-        <span>
-          {isToday(new Date(startDate))
-            ? "Today"
-            : formatDistanceFromNow(startDate)}{" "}
-          &rarr; {numNights} night stay
-        </span>
-        <span>
-          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-          {format(new Date(endDate), "MMM dd yyyy")}
-        </span>
-      </Stacked>
+        <Stacked>
+          <span>
+            {isToday(new Date(startDate))
+              ? "Today"
+              : formatDistanceFromNow(startDate)}{" "}
+            &rarr; {numNights} night stay
+          </span>
+          <span>
+            {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
+            {format(new Date(endDate), "MMM dd yyyy")}
+          </span>
+        </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+        <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
-      <Amount>{formatCurrency(totalPrice)}</Amount>
-      <Menus.Menu>
-        <Menus.Toggle id={bookingId}></Menus.Toggle>
-        <Menus.List id={bookingId}>
-          <Menus.Button onClick={() => navigate(`/bookings/${bookingId}`)}>
-            <HiEye />
-            See Details
-          </Menus.Button>
-        </Menus.List>
-      </Menus.Menu>
+        <Amount>{formatCurrency(totalPrice)}</Amount>
+        <Menus.Menu>
+          <Menus.Toggle id={bookingId}></Menus.Toggle>
+          <Menus.List id={bookingId}>
+            <Menus.Button onClick={() => navigate(`/bookings/${bookingId}`)}>
+              <HiEye />
+              See Details
+            </Menus.Button>
+            {status === "unconfirmed" && (
+              <Menus.Button onClick={() => navigate(`/checkin/${bookingId}`)}>
+                <HiArrowDownOnSquare />
+                Check-In
+              </Menus.Button>
+            )}
+            {status === "checked-in" && (
+              <Menus.Button
+                onClick={() => {
+                  console.log(bookingId);
+                  checkout(bookingId);
+                }}
+                disabled={isCheckingout}
+              >
+                <HiArrowUpOnSquare />
+                Check-Out
+              </Menus.Button>
+            )}
+            {status !== "checked-in" && (
+              <Modal.Open opens="delete">
+                <Menus.Button disabled={isDeletingGuest}>
+                  <HiTrash />
+                  Delete Guest
+                </Menus.Button>
+              </Modal.Open>
+            )}
+          </Menus.List>
+        </Menus.Menu>
+        <Modal.Window name="delete">
+          <ConfirmDelete
+            resourceName="booking"
+            onConfirm={() => deleteGuest(bookingId)}
+          />
+        </Modal.Window>
+      </Modal>
     </Table.Row>
   );
 }
