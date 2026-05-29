@@ -111,10 +111,10 @@ const List = function ({ id, children }) {
     document.body,
   );
 };
-const Button = function ({ children }) {
+const Button = function ({ children, onClick }) {
   return (
     <li>
-      <StyledButton>{children}</StyledButton>
+      <StyledButton onClick={onClick}>{children}</StyledButton>
     </li>
   );
 };

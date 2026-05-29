@@ -9,6 +9,8 @@ import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
+import useBooking from "./useBooking";
+import Spinner from "../../ui/Spinner";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -16,11 +18,25 @@ const HeadingGroup = styled.div`
   align-items: center;
 `;
 
-function BookingDetail() {
-  const booking = {};
-  const status = "checked-in";
-
+export function BookingDetail() {
+  const { booking, isLoading, error } = useBooking();
   const moveBack = useMoveBack();
+
+  // IMPORTANT: Never destructure before checking if booking exists
+  // Because booking can be undefined while API is loading or failing
+
+  if (isLoading) return <Spinner />;
+
+  // Handling API failure state
+  if (error) return <p>Something went wrong while loading booking.</p>;
+
+  // Handling missing data safely
+  if (!booking) return <p>Booking not found.</p>;
+
+  // Now safe to destructure
+  const { status, id: bookingId } = booking;
+
+  console.log(booking);
 
   const statusToTagName = {
     unconfirmed: "blue",
@@ -32,9 +48,11 @@ function BookingDetail() {
     <>
       <Row type="horizontal">
         <HeadingGroup>
-          <Heading as="h1">Booking #X</Heading>
+          <Heading as="h1">Booking #{bookingId}</Heading>
+
           <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
         </HeadingGroup>
+
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
 
@@ -48,5 +66,5 @@ function BookingDetail() {
     </>
   );
 }
-
-export default BookingDetail;
+/* export default BookingDetail;
+ */

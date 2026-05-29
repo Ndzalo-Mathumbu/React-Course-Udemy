@@ -6,6 +6,9 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import Menus from "../../ui/Menus";
+import { HiEye } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -53,8 +56,8 @@ function BookingRow({ booking }) {
     "checked-out": "silver",
   };
 
-  console.log(booking);
-
+  console.log(bookingId);
+  const navigate = useNavigate();
   return (
     <Table.Row>
       <Cabin>{name}</Cabin>
@@ -80,6 +83,15 @@ function BookingRow({ booking }) {
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+      <Menus.Menu>
+        <Menus.Toggle id={bookingId}></Menus.Toggle>
+        <Menus.List id={bookingId}>
+          <Menus.Button onClick={() => navigate(`/bookings/${bookingId}`)}>
+            <HiEye />
+            See Details
+          </Menus.Button>
+        </Menus.List>
+      </Menus.Menu>
     </Table.Row>
   );
 }
