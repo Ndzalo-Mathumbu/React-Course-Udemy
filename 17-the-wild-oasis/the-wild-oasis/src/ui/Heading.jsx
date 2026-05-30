@@ -16,10 +16,11 @@ const Heading = styled.h1`
     `}
 
     ${({ as }) =>
-    as === "h3" &&
+    as === "h2" &&
     css`
-      color: #c60000;
-      background-color: var(--color-grey-0);
+      color: #4f46e5;
+      background-color: #4e46e533;
+      border-radius: 5px;
       font-size: 2rem;
     `}
 `;

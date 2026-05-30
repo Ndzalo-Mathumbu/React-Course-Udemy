@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addCabin, createEditCabin } from "../../../services/apiCabins";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { successNotification } from "../../../utils/helpers";
 
 function useCreateEditCabin(onCloseModal) {
   const { reset } = useForm();
@@ -12,7 +13,7 @@ function useCreateEditCabin(onCloseModal) {
     mutationKey: ["cabins"],
     mutationFn: addCabin,
     onSuccess: () => {
-      toast.success("New cabin successfully created");
+      successNotification("New cabin successfully created");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
       onCloseModal?.();
       reset();

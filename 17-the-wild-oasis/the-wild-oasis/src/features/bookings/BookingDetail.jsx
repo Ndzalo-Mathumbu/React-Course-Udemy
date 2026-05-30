@@ -94,7 +94,7 @@ export function BookingDetail() {
 
       <Modal>
         {/* 1.OPENS MODAL */}
-        {status === "unconfirmed" && (
+        {status !== "checked-in" && (
           <Modal.Open opens="delete">
             <DeleteButton disabled={isDeletingGuest}>Delete Guest</DeleteButton>
           </Modal.Open>

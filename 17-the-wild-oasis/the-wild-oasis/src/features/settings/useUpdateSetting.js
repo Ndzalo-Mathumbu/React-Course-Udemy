@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { updateSetting as updateSettingApi } from "../../services/apiSettings";
+import { errorNotification, successNotification } from "../../utils/helpers";
 
 function useUpdateSetting() {
   const { reset } = useForm();
@@ -10,11 +10,11 @@ function useUpdateSetting() {
     mutationKey: ["settings"],
     mutationFn: updateSettingApi,
     onSuccess: () => {
-      toast.success("New setting updated successfully");
+      successNotification("New setting updated successfully");
       queryClient.invalidateQueries({ queryKey: ["settings"] });
       reset();
     },
-    onError: () => toast.error("Could not update settings"),
+    onError: () => errorNotification("Could not update settings"),
   });
   return { isUpdating, updateSetting };
 }

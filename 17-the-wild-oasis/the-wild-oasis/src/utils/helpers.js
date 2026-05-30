@@ -1,5 +1,8 @@
 import { formatDistance, parseISO } from "date-fns";
 import { differenceInDays } from "date-fns";
+import soundForSuccess from "../../public/soundForSuccess.wav";
+import soundForError from "../../public/soundForError.wav";
+import toast from "react-hot-toast";
 
 // We want to make this function work for both Date objects and strings (which come from Supabase)
 export const subtractDates = (dateStr1, dateStr2) =>
@@ -28,3 +31,19 @@ export const formatCurrency = (value) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "ZAR" }).format(
     value,
   );
+
+//Notifications
+
+export const successNotification = function (msg) {
+  const playSuccessSound = new Audio(soundForSuccess);
+  playSuccessSound.currentTime = 0;
+  playSuccessSound.play();
+  toast.success(msg);
+};
+
+export const errorNotification = function (msg) {
+  const playSuccessSound = new Audio(soundForError);
+  playSuccessSound.currentTime = 0;
+  playSuccessSound.play();
+  toast.error(msg);
+};

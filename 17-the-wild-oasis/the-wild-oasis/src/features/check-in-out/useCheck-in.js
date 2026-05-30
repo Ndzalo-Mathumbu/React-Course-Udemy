@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { updateBooking } from "../../services/apiBookings";
-import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { errorNotification, successNotification } from "../../utils/helpers";
 
 function useCheckIn() {
   const queryClient = useQueryClient();
@@ -14,11 +14,11 @@ function useCheckIn() {
         ...breakfast,
       }),
     onSuccess: (data) => {
-      toast.success(`Booking #${data.id} successfully checked in`);
+      successNotification(`Booking #${data.id} successfully checked in`);
       queryClient.invalidateQueries({ active: true });
       navigate(`/`);
     },
-    /*  onError: () => toast.error("An error happend while checking in 😕"), */
+    /*  onError: () => errorNotification("An error happend while checking in 😕"), */
   });
   return { isCheckingIn, checkin };
 }
