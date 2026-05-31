@@ -9,6 +9,9 @@ const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.5rem 6.3rem;
   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledAppLayOut = styled.div`

@@ -19,5 +19,5 @@ export const useRecentStays = function () {
     (stay) => stay.status === "checked-in" || stay.status === "checked-pout",
   );
 
-  return { isLoading, stays, confirmedStays };
+  return { isLoading, stays, confirmedStays, numDays };
 };

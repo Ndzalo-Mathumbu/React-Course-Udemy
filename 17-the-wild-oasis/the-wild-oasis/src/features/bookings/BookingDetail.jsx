@@ -39,7 +39,7 @@ export function BookingDetail() {
   if (isLoading) return <Spinner />;
 
   // Handling API failure state
-  if (error) return <p>Something went wrong while loading booking.</p>;
+  if (error) return <p>Could not find booking</p>;
 
   // Handling missing data safely
   if (!booking) return <p>Booking not found.</p>;

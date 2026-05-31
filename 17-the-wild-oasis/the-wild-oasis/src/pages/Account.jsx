@@ -18,6 +18,7 @@ function Account() {
         <Heading as="h3">Update password</Heading>
         <UpdatePasswordForm />
       </Row>
+      <p> Built by Ndzalo NK Mathumbu • Course project • 2026</p>
     </>
   );
 }
