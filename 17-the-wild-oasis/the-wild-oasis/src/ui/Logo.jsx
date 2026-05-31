@@ -11,7 +11,7 @@ const Img = styled.img`
   z-index: 1;
 `;
 
-function Logo() {
+/* function Logo() {
   const { isDarkMode } = useDarkMode();
   const src = isDarkMode
     ? "../../public/logo-dark.png"
@@ -23,4 +23,17 @@ function Logo() {
   );
 }
 
+*/
+
+function Logo() {
+  const { isDarkMode } = useDarkMode();
+
+  const src = isDarkMode ? "./logo-dark.png" : "./logo-light.png";
+
+  return (
+    <StyledLogo>
+      <Img src={src} alt="Logo" />
+    </StyledLogo>
+  );
+}
 export default Logo;
