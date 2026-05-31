@@ -6,7 +6,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 function LogOut() {
   const { logout, isLoggingout } = useLogout();
   return (
-    <ButtonIcon disabled={isLoggingout} onClick={logout}>
+    <ButtonIcon disabled={isLoggingout} onClick={logout} title="LOGOUT">
       {isLoggingout ? <SpinnerMini /> : <HiArrowRightEndOnRectangle />}
     </ButtonIcon>
   );
