@@ -1,4 +1,5 @@
 // import Counter from "./Components/counter";
+import "./globals.css";
 import Logo from "./Components/Logo";
 import Navigation from "./Components/Navigation";
 
@@ -19,7 +20,7 @@ const RootLayout = function ({ children }) {
         <main>{children}</main>
       </body>
       <footer>
-        <p> Built by Ndzalo NK Mathumbu • Course project • 2026</p>
+        <p>Built by Ndzalo NK Mathumbu • Course project • 2026</p>
       </footer>
     </html>
   );
