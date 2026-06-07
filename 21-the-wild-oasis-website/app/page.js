@@ -1,12 +1,31 @@
 import Link from "next/link";
-// import AnimatedHeading from "./Components/AnimatedHeading";
+import AnimatedText from "@/app/_components/AnimatedHeading";
+import Image from "next/image";
+import bgImage from "../public/bg.png";
 
 export default function Page() {
   return (
-    <div>
-      {/*  <a href="/cabins">See luxury cabins</a>  this reloads the page*/}
-      <Link href="/cabins">See luxury cabins</Link>
-      {/* <AnimatedHeading /> */}
-    </div>
+    <main className="mt-24">
+      <Image
+        src={bgImage}
+        quality={80}
+        fill
+        placeholder="blur"
+        className="object-cover object-top flex-1"
+        alt="Mountains and forests with two cabins"
+      />
+
+      <div className="relative z-10 text-center">
+        <h1 className="md:text-6xl text-4xl text-primary-50 mb-10 tracking-tight font-normal">
+          <AnimatedText />
+        </h1>
+        <Link
+          href="/cabins"
+          className="bg-accent-500 px-8 py-6 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all"
+        >
+          Escape Into the Wild
+        </Link>
+      </div>
+    </main>
   );
 }

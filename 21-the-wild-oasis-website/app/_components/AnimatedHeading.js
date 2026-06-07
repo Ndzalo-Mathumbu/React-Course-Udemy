@@ -20,11 +20,11 @@ function AnimatedText() {
       animationRef.current?.revert?.();
 
       animationRef.current = gsap.from(splitRef.current.words, {
-        x: 90,
+        x: 95,
         opacity: 0,
         rotation: "30",
         duration: 0.5,
-        ease: "power3.out",
+        ease: "power1.inOut",
         stagger: 0.3,
       });
     };
