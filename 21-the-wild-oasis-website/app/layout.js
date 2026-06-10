@@ -1,7 +1,9 @@
 // import Counter from "./Components/counter";
+
 import "@/app/_styles/globals.css";
 import { Josefin_Sans } from "next/font/google";
 import Header from "./_components/Header";
+import ChechPathName from "./_components/ChechPathName";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -29,9 +31,7 @@ const RootLayout = function ({ children }) {
           <main className="max-w-6xl mx-auto w-full">{children}</main>
         </div>
       </body>
-      {/* <footer>
-        <p>Built by Ndzalo NK Mathumbu • Course project • 2026</p>
-      </footer> */}
+      <ChechPathName />
     </html>
   );
 };
