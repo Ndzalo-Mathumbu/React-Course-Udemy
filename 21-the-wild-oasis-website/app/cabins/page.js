@@ -6,6 +6,9 @@ export const metadata = {
   title: "Cabins",
 };
 
+export const revalidate = 3600;
+// export const revalidate = 10;
+
 const Page = function () {
   return (
     <div>

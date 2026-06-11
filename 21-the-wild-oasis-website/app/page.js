@@ -3,6 +3,8 @@ import AnimatedText from "@/app/_components/AnimatedHeading";
 import Image from "next/image";
 import bgImage from "../public/bg.png";
 
+export const dynamic = "force-static";
+
 export default function Page() {
   return (
     <main className="mt-24">
