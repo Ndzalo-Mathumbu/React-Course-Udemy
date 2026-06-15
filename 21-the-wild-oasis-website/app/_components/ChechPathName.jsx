@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 
 function Footer() {
   const pathName = usePathname();
-  console.log("this is the path", pathName);
   return (
     <footer>
       {pathName === "/" || (
