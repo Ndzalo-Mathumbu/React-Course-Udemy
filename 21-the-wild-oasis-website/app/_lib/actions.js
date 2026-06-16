@@ -7,3 +7,7 @@ export const signInAction = async function () {
 export const signOutAction = async function () {
   await signOut({ redirectTo: "/" });
 };
+
+export const UpdateProfile = async function () {
+  console.log("SA");
+};

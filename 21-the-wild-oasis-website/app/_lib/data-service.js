@@ -135,10 +135,15 @@ export async function getSettings() {
   return data;
 }
 
-export async function getCountries() {
+export async function getCountries(countryName) {
   try {
     const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag",
+      `https://api.restcountries.com/countries/v5?q=${countryName}`,
+      {
+        headers: {
+          Authorization: "Bearer rc_live_9aee869b474b4149a021905a66431f21",
+        },
+      },
     );
     const countries = await res.json();
     return countries;

@@ -6,10 +6,11 @@ export const metadata = {
 
 async function Page() {
   const session = await auth?.();
+  const fullName = session?.user?.name.split(" ").splice(0, 2).join(" ");
 
   return (
     <h2 className="font-semibold text-2xl text-accent-400 mb-7">
-      {session?.user?.name ? `Welcome, ${session?.user?.name}` : `Welcome 😀`}
+      {session?.user?.name ? `Welcome, ${fullName}` : `Welcome 😀`}
     </h2>
   );
 }

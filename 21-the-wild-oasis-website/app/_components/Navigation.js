@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const Navigation = function ({ session }) {
+  const fullName = session?.user?.name.split(" ").splice(0, 2).join(" ");
   const [label, setLabel] = useState("Guest area");
   const links = [
     { id: 1, href: "/cabins", label: "Cabins" },
@@ -14,7 +15,7 @@ const Navigation = function ({ session }) {
   ];
 
   const handleMouseEnter = function () {
-    setLabel(session?.user?.name || "Guest area");
+    setLabel(fullName || "Guest area");
   };
 
   const handleMouseLeave = function () {
@@ -45,9 +46,7 @@ const Navigation = function ({ session }) {
                   link.label === "Guest area" ? handleMouseEnter : undefined
                 }
                 onMouseLeave={
-                  link.label === session?.user?.name
-                    ? handleMouseLeave
-                    : undefined
+                  link.label === fullName ? handleMouseLeave : undefined
                 }
               >
                 {link.label}
@@ -68,19 +67,18 @@ const Navigation = function ({ session }) {
                   )}
                 </div>
                 <div>
-                  {session?.user?.image &&
-                    link.label === session?.user?.name && (
-                      <>
-                        <Image
-                          src={session?.user?.image}
-                          alt="User avatar"
-                          width={45}
-                          height={45}
-                          className="rounded-full hover:scale-105 transition-transform"
-                          referrerPolicy="no-referrer"
-                        />
-                      </>
-                    )}
+                  {session?.user?.image && link.label === fullName && (
+                    <>
+                      <Image
+                        src={session?.user?.image}
+                        alt="User avatar"
+                        width={45}
+                        height={45}
+                        className="rounded-full hover:scale-105 transition-transform"
+                        referrerPolicy="no-referrer"
+                      />
+                    </>
+                  )}
                 </div>
               </div>
             </Link>
