@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { UpdateProfile } from "../_lib/actions";
+import { useFormStatus } from "react-dom";
+import SpinnerMini from "./SpinnerMini";
 
 function UpdateProfileForm({ children, guestInfo }) {
   const { fullName, email, nationality, nationalID, countryFlag } = guestInfo;
@@ -14,6 +16,7 @@ function UpdateProfileForm({ children, guestInfo }) {
       <div className="space-y-2">
         <label>Full name</label>
         <input
+          name="fullName"
           disabled
           defaultValue={fullName}
           className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
@@ -24,6 +27,7 @@ function UpdateProfileForm({ children, guestInfo }) {
         <label>Email address</label>
         <input
           disabled
+          name="email"
           defaultValue={email}
           className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
         />
@@ -54,12 +58,22 @@ function UpdateProfileForm({ children, guestInfo }) {
       </div>
 
       <div className="flex justify-end items-center gap-6">
-        <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
-          Update profile
-        </button>
+        <Button />
       </div>
     </form>
   );
 }
+
+const Button = function () {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      disabled={pending}
+      className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300 flex "
+    >
+      {pending ? <>Updating profile</> : `Update profile`}
+    </button>
+  );
+};
 
 export default UpdateProfileForm;

@@ -24,7 +24,7 @@ const RootLayout = function ({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${josefin.className} antialiased text-primary-100 bg-primary-950 min-h-screen flex flex-col relative`}
+        className={`${josefin.className} antialiased text-primary-100 bg-primary-950 min-h-screen flex flex-col relative overflow-x-hidden`}
       >
         <Header />
         <div className="flex-1 px-8 py-12 grid">
