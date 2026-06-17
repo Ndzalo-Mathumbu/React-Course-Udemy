@@ -1,3 +1,4 @@
+"use client";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
 import DeleteReservation from "./DeleteReservation";
@@ -9,7 +10,7 @@ export const formatDistanceFromNow = (dateStr) =>
     addSuffix: true,
   }).replace("about ", "");
 
-function ReservationCard({ booking }) {
+function ReservationCard({ booking, onDelete }) {
   const {
     id,
     guestId,
@@ -80,7 +81,7 @@ function ReservationCard({ booking }) {
             <span className="mt-1">Edit</span>
           </Link>
         )}
-        <DeleteReservation bookingId={id} />
+        <DeleteReservation onDelete={onDelete} bookingId={id} />
       </div>
     </div>
   );

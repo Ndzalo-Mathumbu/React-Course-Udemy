@@ -201,7 +201,7 @@ export async function createBooking(newBooking) {
   return data;
 }
  */
-export async function updateBooking(id, updatedFields) {
+/* export async function updateBooking(id, updatedFields) {
   const { data, error } = await supabase
     .from("Bookings")
     .update(updatedFields)
@@ -215,7 +215,7 @@ export async function updateBooking(id, updatedFields) {
   }
   return data;
 }
-
+ */
 /////////////
 // DELETE
 

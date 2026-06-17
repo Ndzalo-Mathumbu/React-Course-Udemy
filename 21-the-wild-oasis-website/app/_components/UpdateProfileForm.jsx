@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { UpdateProfile } from "../_lib/actions";
 import { useFormStatus } from "react-dom";
-import SpinnerMini from "./SpinnerMini";
 
 function UpdateProfileForm({ children, guestInfo }) {
   const { fullName, email, nationality, nationalID, countryFlag } = guestInfo;
