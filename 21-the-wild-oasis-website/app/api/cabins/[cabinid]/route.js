@@ -1,7 +1,6 @@
 import { getBookedDatesByCabinId, getCabin } from "@/app/_lib/data-service";
 
 export const GET = async function (request, { params }) {
-  console.log(request, params);
   const { cabinid } = params;
   try {
     const [cabin, bookedDates] = await Promise.all([

@@ -4,7 +4,6 @@ import { useState } from "react";
 
 function Counter({ userNames }) {
   const [count, setCount] = useState(0);
-  console.log(userNames);
   const handleAdd = function () {
     setCount((a) => a + 1);
   };

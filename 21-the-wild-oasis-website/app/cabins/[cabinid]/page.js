@@ -25,7 +25,7 @@ export const generateStaticParams = async function () {
 
 async function page({ params }) {
   const cabin = await getCabin(params["cabinid"]);
-  const { name, maxCapacity, image, description } = cabin;
+  const { name, maxCapacity, image, description, id } = cabin;
   return (
     <div className="max-w-6xl mx-auto mt-8">
       <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
@@ -77,7 +77,7 @@ async function page({ params }) {
           Reserve Cabin {name} today. Pay on arrival.
         </h2>
         <Suspense fallback={<Spinner />}>
-          <Reservation cabin={cabin} />
+          <Reservation cabin={cabin} id={id} />
         </Suspense>
       </div>
     </div>

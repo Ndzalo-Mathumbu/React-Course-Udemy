@@ -10,7 +10,6 @@ export const metadata = {
 async function page() {
   const session = await auth();
   const guestInfo = await getGuest(session?.user?.email);
-  console.log(guestInfo);
 
   return (
     <div>
